@@ -1,4 +1,4 @@
-# Encapsulation of `echo $DATA | command [--options] [| command...]`
+# Library for easier work with external filters
 
 Encapsulation of a command along with its options which provides a filter method.
 Its primary role is to **facilitate filtering operations within a pipeline**,

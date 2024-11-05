@@ -14,7 +14,7 @@
     "allow-plugins": false,
     "sort-packages": true
   },
-  "description": "Encapsulation of `echo $DATA | command [--options] [| command...]`",
+  "description": "Library for easier work with external filters",
   "funding": [
     {
       "type": "other",
@@ -22,7 +22,13 @@
     }
   ],
   "homepage": "https://github.com/petrknap/php-external-filter",
-  "keywords": [],
+  "keywords": [
+    "data-filtering",
+    "data-processing",
+    "data-transformation",
+    "filter",
+    "filtering"
+  ],
   "license": "LGPL-3.0-or-later",
   "name": "petrknap/external-filter",
   "require": {
