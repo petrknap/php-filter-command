@@ -7,10 +7,12 @@ allowing for easy chaining and execution of executable filters.
 ```php
 namespace PetrKnap\ExternalFilter;
 
-# echo '<?php echo "Hello!";' | php
-$data = (new Filter('php'))->filter('<?php echo "Hello!";');
-
-echo $data;
+# echo "H4sIAAAAAAAAA0tJLEkEAGPz860EAAAA" | base64 --decode | gzip --decompress
+echo (
+    new Filter('base64', ['--decode'])
+)->pipe(
+    new Filter('gzip', ['--decompress'])
+)->filter('H4sIAAAAAAAAA0tJLEkEAGPz860EAAAA');
 ```
 
 ---
