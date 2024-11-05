@@ -1,8 +1,17 @@
-# Wrapper around `echo $input | command [--options] | cat`
+# Encapsulation of `echo $DATA | command [--options] [| command...]`
 
-Encapsulation of a command along with its options, provides a filter method.
+Encapsulation of a command along with its options which provides a filter method.
 Its primary role is to **facilitate filtering operations within a pipeline**,
 allowing for easy chaining and execution of executable filters.
+
+```php
+namespace PetrKnap\FilterCommand;
+
+# echo '<?php echo "Hello!";' | php
+$data = (new FilterCommand('php'))->filter('<?php echo "Hello!";');
+
+echo $data;
+```
 
 ---
 
