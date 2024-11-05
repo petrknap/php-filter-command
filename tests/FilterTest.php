@@ -2,27 +2,27 @@
 
 declare(strict_types=1);
 
-namespace PetrKnap\FilterCommand;
+namespace PetrKnap\ExternalFilter;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-final class FilterCommandTest extends TestCase
+final class FilterTest extends TestCase
 {
-    public function testFiltersInputByCommand(): void
+    public function testFilters(): void
     {
         self::assertSame(
             'test',
-            (new FilterCommand('php'))->filter('<?php echo "test";'),
+            (new Filter('php'))->filter('<?php echo "test";'),
         );
     }
 
     #[DataProvider('dataThrows')]
     public function testThrows(string $command, array $options, string $data): void
     {
-        self::expectException(Exception\CouldNotFilterData::class);
+        self::expectException(Exception\FilterException::class);
 
-        (new FilterCommand($command, $options))->filter($data);
+        (new Filter($command, $options))->filter($data);
     }
 
     public static function dataThrows(): array

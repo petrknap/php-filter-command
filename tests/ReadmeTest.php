@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PetrKnap\FilterCommand;
+namespace PetrKnap\ExternalFilter;
 
 use PetrKnap\Shorts\PhpUnit\MarkdownFileTestInterface;
 use PetrKnap\Shorts\PhpUnit\MarkdownFileTestTrait;

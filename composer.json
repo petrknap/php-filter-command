@@ -2,12 +2,12 @@
   "WARNING": "This file is updated automatically. All keys will be overwritten, except of 'conflict', 'keywords', 'require', 'require-dev', 'scripts' and 'suggest'.",
   "autoload": {
     "psr-4": {
-      "PetrKnap\\FilterCommand\\": "src"
+      "PetrKnap\\ExternalFilter\\": "src"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "PetrKnap\\FilterCommand\\": "tests"
+      "PetrKnap\\ExternalFilter\\": "tests"
     }
   },
   "config": {
@@ -21,17 +21,17 @@
       "url": "https://petrknap.github.io/donate.html"
     }
   ],
-  "homepage": "https://github.com/petrknap/php-filter-command",
+  "homepage": "https://github.com/petrknap/php-external-filter",
   "keywords": [],
   "license": "LGPL-3.0-or-later",
-  "name": "petrknap/filter-command",
+  "name": "petrknap/external-filter",
   "require": {
     "php": ">=8.1",
-    "petrknap/shorts": "^2.0|^3.0",
     "symfony/process": "^4.0|^5.0|^6.0|^7.0"
   },
   "require-dev": {
     "nunomaduro/phpinsights": "^2.11",
+    "petrknap/shorts": "^3.0",
     "phpstan/phpstan": "^1.12",
     "squizlabs/php_codesniffer": "^3.7",
     "phpunit/phpunit": "^10.5"

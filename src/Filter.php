@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace PetrKnap\FilterCommand;
+namespace PetrKnap\ExternalFilter;
 
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
-final class FilterCommand
+final class Filter
 {
     /**
      * @param non-empty-string $command
@@ -20,18 +20,18 @@ final class FilterCommand
     }
 
     /**
-     * @throws Exception\CouldNotFilterData
+     * @throws Exception\FilterException
      */
-    public function filter(string $data): string
+    public function filter(string $input): string
     {
         $process = new Process([
             $this->command,
             ...$this->options,
         ]);
-        $process->setInput($data);
+        $process->setInput($input);
         $process->run();
         if (!$process->isSuccessful()) {
-            throw new class (__METHOD__, $data, new ProcessFailedException($process)) extends Exception\CouldNotFilterData {
+            throw new class ($process) extends ProcessFailedException implements Exception\FilterException {
             };
         }
         return $process->getOutput();
