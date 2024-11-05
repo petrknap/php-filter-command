@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PetrKnap\FilterCommand\Exception;
+namespace PetrKnap\ExternalFilter\Exception;
 
 use Throwable;
 

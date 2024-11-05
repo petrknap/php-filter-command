@@ -1,7 +1,7 @@
 authors
-composer PetrKnap\\FilterCommand
+composer PetrKnap\\ExternalFilter
 dockerfile php 8.2-cli
-docker-scripts petrknap/php-filter-command
+docker-scripts petrknap/php-external-filter
 donation
 github-templates
 github-workflow docker "composer ci-script"
