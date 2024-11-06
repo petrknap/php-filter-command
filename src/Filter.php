@@ -46,14 +46,15 @@ final class Filter
             };
         }
 
-        $process = $this->startFilter($input, static function (string $type, string $data) use ($output, $error): void {
+        $process = Process::fromShellCommandline($this->buildShellCommandLine());
+        $process->setInput($input);
+        $process->run(static function (string $type, string $data) use ($output, $error): void {
             /** @var Process::OUT|Process::ERR $type */
             match ($type) {
                 Process::OUT => $output === null or fwrite($output, $data),
                 Process::ERR => $error === null or fwrite($error, $data),
             };
         });
-        $process->wait();
         if (!$process->isSuccessful()) {
             throw new class ($process) extends ProcessFailedException implements Exception\FilterException {
             };
@@ -80,22 +81,12 @@ final class Filter
         return $base;
     }
 
-    /**
-     * @param string|resource $input
-     */
-    private function startFilter(mixed $input, callable|null $callback): Process
+    private function buildShellCommandLine(): string
     {
-        if ($this->previous !== null) {
-            $input = $this->previous->startFilter($input, null);
-        }
-
-        $process = new Process([
-            $this->command,
-            ...$this->options,
-        ]);
-        $process->setInput($input);
-        $process->start($callback);
-
-        return $process;
+        return ($this->previous === null ? '' : "{$this->previous->buildShellCommandLine()} | ")
+            . (new Process([
+                $this->command,
+                ...$this->options,
+            ]))->getCommandLine();
     }
 }
