@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class FilterTest extends TestCase
 {
-    public function testFilters(): void
+    public function testFiltersInput(): void
     {
         self::assertSame(
             'test',
@@ -17,12 +17,23 @@ final class FilterTest extends TestCase
         );
     }
 
+    public function testBuildsAndExecutesPipeline(): void
+    {
+        $pipeline = (new Filter('gzip'))->pipe(new Filter('base64'))->pipe(new Filter('base64', ['--decode']));
+        $filter = new Filter('gzip', ['--decompress']);
+
+        self::assertSame(
+            'test',
+            (new Filter('cat'))->pipe($pipeline)->pipe($filter)->filter('test'),
+        );
+    }
+
     #[DataProvider('dataThrows')]
-    public function testThrows(string $command, array $options, string $data): void
+    public function testThrows(string $command, array $options, string $input): void
     {
         self::expectException(Exception\FilterException::class);
 
-        (new Filter($command, $options))->filter($data);
+        (new Filter($command, $options))->filter($input);
     }
 
     public static function dataThrows(): array
