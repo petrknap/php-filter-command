@@ -15,6 +15,23 @@ echo (
 )->filter('H4sIAAAAAAAAA0tJLEkEAGPz860EAAAA');
 ```
 
+If you want to process external data, redirect output or get errors, you can use input, output or error streams.
+
+```php
+namespace PetrKnap\ExternalFilter;
+
+$errorStream = fopen('php://memory', 'w+');
+
+(new Filter('php'))->filter(
+    '<?php fwrite(fopen("php://stderr", "w"), "error");',
+    error: $errorStream,
+);
+
+rewind($errorStream);
+echo stream_get_contents($errorStream);
+fclose($errorStream);
+```
+
 ---
 
 Run `composer require petrknap/external-filter` to install it.
