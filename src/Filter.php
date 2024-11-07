@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PetrKnap\ExternalFilter;
 
+use InvalidArgumentException;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
@@ -22,10 +23,17 @@ final class Filter
     }
 
     /**
+     * @param string|resource $input
+     *
      * @throws Exception\FilterException
      */
-    public function filter(string $input): string
+    public function filter(mixed $input): string
     {
+        if (!is_string($input) && !is_resource($input)) {
+            throw new class ('$input must be string|resource') extends InvalidArgumentException implements Exception\FilterException {
+            };
+        }
+
         $process = $this->startFilter($input);
 
         $process->wait();
@@ -56,7 +64,10 @@ final class Filter
         return $base;
     }
 
-    private function startFilter(string $input): Process
+    /**
+     * @param string|resource $input
+     */
+    private function startFilter(mixed $input): Process
     {
         if ($this->previous !== null) {
             $input = $this->previous->startFilter($input);
