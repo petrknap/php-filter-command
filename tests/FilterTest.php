@@ -11,7 +11,7 @@ use stdClass;
 final class FilterTest extends TestCase
 {
     #[DataProvider('dataFiltersInput')]
-    public function testFiltersInput($input, string $expectedOutput): void
+    public function testFiltersInput(mixed $input, string $expectedOutput): void
     {
         self::assertSame(
             $expectedOutput,
@@ -61,7 +61,7 @@ final class FilterTest extends TestCase
             'unknown command' => ['unknown', [], ''],
             'unknown option' => ['php', ['--unknown'], ''],
             'wrong data' => ['php', [], '<?php wrong data'],
-            'wrong input' => ['php', [], new stdClass()],
+            'unsupported input' => ['php', [], new stdClass()],
         ];
     }
 }
